@@ -16,7 +16,7 @@ object ConnectDB {
     // DB파일 불러오는 함수
     // assets 폴더에 db파일 넣어주면됨~
     // /data/user/0/com.example.todayverse/databases/todayVerse.db
-    val ROOT_DIR = "/data/user/0/com.example.todayverse/databases/"
+    val ROOT_DIR = "/data/data/com.example.todayverse/databases/"
     val DB_NAME = "todayVerse.db"
 
     fun setDB(ctx: Context) {
@@ -51,7 +51,7 @@ object ConnectDB {
     var db: SQLiteDatabase? = null
     lateinit var cursor: Cursor
     var mHelper: ProductDBHelper? = null
-    var tableName = "android_metadata"
+    var tableName = "t_VERSE"
 
     fun ShowMushDBInfo(mContext : Context, name: String) {
         setDB(mContext)
@@ -65,6 +65,8 @@ object ConnectDB {
         cursor = db!!.rawQuery(sql, null)
         while (cursor.moveToNext()) {
             System.out.println("테스트 " + cursor.getString(0))
+            System.out.println("테스트 " + cursor.getString(1))
+            System.out.println("테스트 " + cursor.getString(2))
 //            if (cursor.getString(1).equals(name)) {
 //                mushname = cursor.getString(1)
 //                mushtype = cursor.getString(2)
