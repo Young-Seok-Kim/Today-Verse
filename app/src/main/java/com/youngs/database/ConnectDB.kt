@@ -1,9 +1,10 @@
-package com.example.database
+package com.youngs.database
 
 import android.content.Context
 import android.content.res.AssetManager
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.view.View
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -11,13 +12,12 @@ import java.io.InputStream
 
 object ConnectDB {
     // DB파일 불러오는 함수
-// assets 폴더에 db파일 넣어주면됨~
-
-    // DB파일 불러오는 함수
     // assets 폴더에 db파일 넣어주면됨~
-    // /data/user/0/com.example.todayverse/databases/todayVerse.db
-    val ROOT_DIR = "/data/data/com.example.todayverse/databases/"
+    // /data/user/0/com.youngs.todayverse/databases/todayVerse.db
+    val ROOT_DIR = "/data/data/com.youngs.todayverse/databases/"
     val DB_NAME = "todayVerse.db"
+    val DB_FULLPATH = "${ROOT_DIR}${DB_NAME}"
+
 
     fun setDB(ctx: Context) {
         val folder = File(ROOT_DIR)
@@ -25,6 +25,11 @@ object ConnectDB {
         } else {
             folder.mkdirs()
         }
+        if (File(DB_FULLPATH).isFile)
+            println("파일 존재")
+        else
+            println("파일 존재하지않음")
+
         val assetManager: AssetManager = ctx.resources.assets
         // db파일 이름 적어주기
         val outfile = File("${ROOT_DIR}${DB_NAME}")
@@ -32,7 +37,8 @@ object ConnectDB {
         var fo: FileOutputStream? = null
         var filesize: Long = 0
         try {
-            `is` = assetManager.open(DB_NAME, AssetManager.ACCESS_BUFFER)
+            `is` = assetManager.open(DB_NAME, AssetManager.ACCESS_STREAMING)
+
             filesize = `is`.available().toLong()
             if (outfile.length() <= 0) {
                 val tempdata = ByteArray(filesize.toInt())
@@ -51,22 +57,27 @@ object ConnectDB {
     var db: SQLiteDatabase? = null
     lateinit var cursor: Cursor
     var mHelper: ProductDBHelper? = null
-    var tableName = "t_VERSE"
 
-    fun ShowMushDBInfo(mContext : Context, name: String) {
+    fun selectTable(mContext : Context, tableName: String) {
+        DBDrop()
         setDB(mContext)
+
+
         mHelper = ProductDBHelper(mContext)
         db = mHelper?.writableDatabase
-        var mushname: String? = null
-        var mushtype: String? = null
-        var mushsym: String? = null
-        var mushsim: String? = null
         val sql = "Select * FROM ${tableName}"
         cursor = db!!.rawQuery(sql, null)
-        while (cursor.moveToNext()) {
-            System.out.println("테스트 " + cursor.getString(0))
-            System.out.println("테스트 " + cursor.getString(1))
-            System.out.println("테스트 " + cursor.getString(2))
+
+        var i = 0
+
+        
+
+        while (cursor.moveToNext()) { // 행
+            for (j in 0 until cursor.columnCount) { // 열
+                println(cursor.getString(j))
+            }
+            i++
+
 //            if (cursor.getString(1).equals(name)) {
 //                mushname = cursor.getString(1)
 //                mushtype = cursor.getString(2)
@@ -74,10 +85,16 @@ object ConnectDB {
 //                mushsim = cursor.getString(4)
 //            }
         }
-//
-//        mname.setText(mushname)
-//        mtype.setText(mushtype)
-//        msym.setText(mushsym)
-//        msim.setText(mushsim)
+        println("i : ${i}")
+    }
+
+
+    fun DBDrop() {
+        val dbFile = File(DB_FULLPATH)
+        if (dbFile.delete()) {
+            println(" 삭제 성공")
+        } else {
+            println(" 삭제 실패")
+        }
     }
 }

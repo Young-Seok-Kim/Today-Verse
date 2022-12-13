@@ -1,4 +1,4 @@
-package com.example.todayverse
+package com.youngs.todayverse
 
 import org.junit.Test
 

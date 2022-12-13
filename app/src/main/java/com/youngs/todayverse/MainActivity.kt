@@ -1,4 +1,4 @@
-package com.example.todayverse
+package com.youngs.todayverse
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,7 +7,8 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.database.ConnectDB
+import com.youngs.database.ConnectDB
+
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView.setNavigationItemSelectedListener(this) //navigation 리스너
 
 //        ConnectDB.setDB(applicationContext)
-        ConnectDB.ShowMushDBInfo(applicationContext,"t_VERSE")
+        ConnectDB.selectTable(applicationContext,"t_VERSE")
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
