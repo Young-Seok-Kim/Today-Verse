@@ -5,6 +5,7 @@ import android.content.res.AssetManager
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.view.View
+import com.youngs.todayverse.verse.model.VerseModel
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -13,7 +14,6 @@ import java.io.InputStream
 object ConnectDB {
     // DB파일 불러오는 함수
     // assets 폴더에 db파일 넣어주면됨~
-    // /data/user/0/com.youngs.todayverse/databases/todayVerse.db
     val ROOT_DIR = "/data/data/com.youngs.todayverse/databases/"
     val DB_NAME = "todayVerse.db"
     val DB_FULLPATH = "${ROOT_DIR}${DB_NAME}"
@@ -70,20 +70,25 @@ object ConnectDB {
 
         var i = 0
 
-        
+        var verseModel = arrayListOf<VerseModel>()
+        var verseHashMap = HashMap<String, String>()
+
+        var no : String
+        var speaker : String
+        var content : String
 
         while (cursor.moveToNext()) { // 행
             for (j in 0 until cursor.columnCount) { // 열
                 println(cursor.getString(j))
+                verseHashMap.set(cursor.getColumnName(j),cursor.getString(j))
             }
+            verseModel.add(VerseModel(
+                verseHashMap.get(cursor.getColumnName(0))?:"",
+                verseHashMap.get(cursor.getColumnName(1))?:"",
+                verseHashMap.get(cursor.getColumnName(2))?:"",
+            ))
+            verseHashMap.clear()
             i++
-
-//            if (cursor.getString(1).equals(name)) {
-//                mushname = cursor.getString(1)
-//                mushtype = cursor.getString(2)
-//                mushsym = cursor.getString(3)
-//                mushsim = cursor.getString(4)
-//            }
         }
         println("i : ${i}")
     }

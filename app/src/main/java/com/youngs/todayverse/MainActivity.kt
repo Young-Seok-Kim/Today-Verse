@@ -25,7 +25,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true) // 드로어를 꺼낼 홈 버튼 활성화
         supportActionBar?.setHomeAsUpIndicator(R.drawable.navi_menu) // 홈버튼 이미지 변경
-        supportActionBar?.setDisplayShowTitleEnabled(true) // 툴바에 타이틀 안보이게
+//        supportActionBar?.setDisplayShowTitleEnabled(true) // 툴바에 타이틀 보이게
+        supportActionBar?.setTitle(R.string.app_name_ko)
 
         // 네비게이션 드로어 생성
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -34,11 +35,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this) //navigation 리스너
 
-//        ConnectDB.setDB(applicationContext)
         ConnectDB.selectTable(applicationContext,"t_VERSE")
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem) : Boolean {
         // 클릭한 툴바 메뉴 아이템 id 마다 다르게 실행하도록 설정
         when(item.itemId){
             android.R.id.home->{
