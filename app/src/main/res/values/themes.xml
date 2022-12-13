@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.TodayVerse" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/sky_blue</item>
+        <item name="controlBackground">@color/white</item>
+        <item name="colorAccent">@color/white</item> <!-- 버튼등의 글씨색..? 아닌듯 -->
+        <item name="android:windowBackground">@color/white</item>
+        <!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
+        <!--        <item name="colorSecondary">@color/teal_200</item>-->
+        <!--        <item name="colorSecondaryVariant">@color/teal_700</item>-->
+        <!--        <item name="colorOnSecondary">@color/black</item>-->
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/controlBackground</item>
+        <item name="android:windowLightStatusBar">true</item> <!-- 값이 true면 상태바의 글씨를 검정색으로 표시해준다, 상태바의 색을 흰색으로 했으니 true로 지정 -->
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>
