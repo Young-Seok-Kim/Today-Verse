@@ -2,13 +2,13 @@ package com.youngs.todayverse
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import com.youngs.database.ConnectDB
 import com.youngs.todayverse.databinding.ActivityMainBinding
 import com.youngs.todayverse.verse.VerseView
 
@@ -41,7 +41,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this) //navigation 리스너
 
-
+        navigationView.visibility = View.GONE
+        toolbar.visibility = View.GONE
     }
 
     override fun onOptionsItemSelected(item: MenuItem) : Boolean {

@@ -3,41 +3,62 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/verse_LinearLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:id="@+id/root_background">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/verseContent_TextView"
-            android:lineSpacingExtra="20sp"
-            android:paddingStart="20sp"
-            android:textSize="25sp"
-            android:fontFamily="@font/s_core_dream4"
-            tools:text="인생은 자전거를 타는 것과 같다. 쓰러지지 않으려면 뛰어야 한다."
-            />
+            android:id="@+id/verse_LinearLayout"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10sp"
-            android:gravity="right"
-            android:paddingEnd="20sp"
-            android:id="@+id/verseSpeaker_TextView"
-            android:textSize="20sp"
-            android:fontFamily="@font/s_core_dream7"
-            tools:text="아인슈타인" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/verseContent_TextView"
+                android:lineSpacingExtra="20sp"
+                android:paddingStart="20sp"
+                android:textSize="25sp"
+                android:fontFamily="@font/s_core_dream4"
+                tools:text="인생은 자전거를 타는 것과 같다. 쓰러지지 않으려면 뛰어야 한다."
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10sp"
+                android:gravity="right"
+                android:paddingEnd="20sp"
+                android:id="@+id/verseSpeaker_TextView"
+                android:textSize="20sp"
+                android:fontFamily="@font/s_core_dream7"
+                tools:text="아인슈타인" />
+        </LinearLayout>
     </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        >
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ad_banner"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/banner_ad_id"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

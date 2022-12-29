@@ -4,8 +4,13 @@
     package="com.youngs.todayverse">
 
     <application
-        android:label="@string/app_name"
+        android:label="@string/app_name_ko"
+        android:icon="@mipmap/ic_launcher"
         android:theme="@style/Theme.TodayVerse">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1871591024314273~9067402898"/>
         <activity
             android:name="com.youngs.todayverse.MainActivity"
             android:exported="true">

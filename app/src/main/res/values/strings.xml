@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TodayVerse</string>
     <string name="app_name_ko">오늘의 명언</string>
+
+    <string name="banner_ad_id">ca-app-pub-1871591024314273/3635360236</string>
+<!--    <string name="banner_test_ad_id">ca-app-pub-3940256099942544/6300978111</string>-->
 </resources>
