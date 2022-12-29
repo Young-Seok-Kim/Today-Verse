@@ -9,7 +9,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
-import java.util.*
 
 object ConnectDB {
     // DB파일 불러오는 함수
@@ -18,7 +17,6 @@ object ConnectDB {
     val DB_NAME = "todayVerse.db"
     val DB_FULLPATH = "${ROOT_DIR}${DB_NAME}"
 
-    val random = Random()
 
 
     fun setDB(ctx: Context) {
@@ -63,41 +61,10 @@ object ConnectDB {
 
         mHelper = ProductDBHelper(mContext)
         db = mHelper?.writableDatabase
-        val sql : String = "Select COUNT(*) as count FROM ${tableName}"
+        val sql : String = "Select * FROM ${tableName}"
         cursor = db!!.rawQuery(sql, null)
 
         var tableCount = cursor.count
-
-
-//        var i = 0
-
-//        val verseModel = arrayListOf<VerseModel>()
-//        val verseHashMap = HashMap<String, String>()
-
-        while (cursor.moveToNext()) { // 행
-//            for (j in 0 until cursor.columnCount) { // 열
-////                println(cursor.getString(j))
-//                verseHashMap.set(cursor.getColumnName(j),cursor.getString(j))
-//            }
-//            verseModel.add(VerseModel(
-//                verseHashMap.get(cursor.getColumnName(0))?:"",
-//                verseHashMap.get(cursor.getColumnName(1))?:"",
-//                verseHashMap.get(cursor.getColumnName(2))?:"",
-//            ))
-//            verseHashMap.clear()
-//            i++
-            tableCount = cursor.getInt(0)
-        }
-//        println("i : ${i}")
-
-        println( "테이블의 행수 : " + tableCount)
-
-        //////////////////////////
-
-        val randNumber = rand(0,tableCount)
-
-        val sqlWhere : String = "Select * FROM ${tableName} LIMIT 1 OFFSET ${randNumber}"
-        cursor = db!!.rawQuery(sqlWhere, null)
 
 
         var i = 0
@@ -117,16 +84,19 @@ object ConnectDB {
             ))
             verseHashMap.clear()
             i++
+            tableCount = cursor.getInt(0)
         }
+//        println("i : ${i}")
 
-        println( "출력결과 : " + verseModel)
+        println( "테이블의 행수 : " + tableCount)
+
+        //////////////////////////
+
 
         return verseModel
     }
 
-    fun rand(from: Int, to: Int) : Int {
-        return random.nextInt(to - from) + from
-    }
+
 
     fun DBDrop() {
         val dbFile = File(DB_FULLPATH)
