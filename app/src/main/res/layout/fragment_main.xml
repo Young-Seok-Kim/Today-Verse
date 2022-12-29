@@ -21,8 +21,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/verseContent_TextView"
             android:paddingStart="20sp"
-            android:text="당신은 사랑받기위해 태어난사람"
-             />
+            tools:text="당신은 사랑받기위해 태어난사람"
+            />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,7 +31,7 @@
             android:gravity="right"
             android:paddingEnd="20sp"
             android:id="@+id/verseSpeaker_TextView"
-            android:text="작자미상" />
+            tools:text="작자미상" />
     </LinearLayout>
 
 

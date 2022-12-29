@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.AssetManager
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import com.youngs.todayverse.BuildConfig
 import com.youngs.todayverse.verse.model.VerseModel
 import java.io.File
 import java.io.FileOutputStream
@@ -58,8 +59,8 @@ object ConnectDB {
         DBDrop()
         setDB(mContext)
 
+        mHelper = ProductDBHelper(mContext,BuildConfig.VERSION_CODE)
 
-        mHelper = ProductDBHelper(mContext)
         db = mHelper?.writableDatabase
         val sql : String = "Select * FROM ${tableName}"
         cursor = db!!.rawQuery(sql, null)
@@ -74,7 +75,6 @@ object ConnectDB {
 
         while (cursor.moveToNext()) { // 행
             for (j in 0 until cursor.columnCount) { // 열
-//                println(cursor.getString(j))
                 verseHashMap.set(cursor.getColumnName(j),cursor.getString(j))
             }
             verseModel.add(VerseModel(
@@ -86,12 +86,8 @@ object ConnectDB {
             i++
             tableCount = cursor.getInt(0)
         }
-//        println("i : ${i}")
 
         println( "테이블의 행수 : " + tableCount)
-
-        //////////////////////////
-
 
         return verseModel
     }
