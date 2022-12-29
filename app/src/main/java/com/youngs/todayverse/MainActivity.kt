@@ -1,24 +1,30 @@
 package com.youngs.todayverse
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.youngs.database.ConnectDB
-
 import com.google.android.material.navigation.NavigationView
+import com.youngs.database.ConnectDB
+import com.youngs.todayverse.databinding.ActivityMainBinding
+import com.youngs.todayverse.verse.VerseView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var navigationView: NavigationView
     lateinit var drawerLayout: DrawerLayout
+    lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater,null,false)
+
         setContentView(R.layout.activity_main)
+
+        supportFragmentManager.beginTransaction().replace(binding.framLayout.id, VerseView()).commit()
 
         val toolbar: Toolbar = findViewById(R.id.toolbar) // toolBar를 통해 App Bar 생성
         setSupportActionBar(toolbar) // 툴바 적용
@@ -35,7 +41,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this) //navigation 리스너
 
-        ConnectDB.selectTable(applicationContext,"t_VERSE")
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem) : Boolean {

@@ -4,12 +4,12 @@ import android.content.Context
 import android.content.res.AssetManager
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.view.View
 import com.youngs.todayverse.verse.model.VerseModel
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
+import java.util.*
 
 object ConnectDB {
     // DB파일 불러오는 함수
@@ -18,6 +18,8 @@ object ConnectDB {
     val DB_NAME = "todayVerse.db"
     val DB_FULLPATH = "${ROOT_DIR}${DB_NAME}"
 
+    val random = Random()
+
 
     fun setDB(ctx: Context) {
         val folder = File(ROOT_DIR)
@@ -25,10 +27,6 @@ object ConnectDB {
         } else {
             folder.mkdirs()
         }
-        if (File(DB_FULLPATH).isFile)
-            println("파일 존재")
-        else
-            println("파일 존재하지않음")
 
         val assetManager: AssetManager = ctx.resources.assets
         // db파일 이름 적어주기
@@ -58,28 +56,58 @@ object ConnectDB {
     lateinit var cursor: Cursor
     var mHelper: ProductDBHelper? = null
 
-    fun selectTable(mContext : Context, tableName: String) {
+    fun selectTable(mContext : Context, tableName: String) : ArrayList<VerseModel> {
         DBDrop()
         setDB(mContext)
 
 
         mHelper = ProductDBHelper(mContext)
         db = mHelper?.writableDatabase
-        val sql = "Select * FROM ${tableName}"
+        val sql : String = "Select COUNT(*) as count FROM ${tableName}"
         cursor = db!!.rawQuery(sql, null)
+
+        var tableCount = cursor.count
+
+
+//        var i = 0
+
+//        val verseModel = arrayListOf<VerseModel>()
+//        val verseHashMap = HashMap<String, String>()
+
+        while (cursor.moveToNext()) { // 행
+//            for (j in 0 until cursor.columnCount) { // 열
+////                println(cursor.getString(j))
+//                verseHashMap.set(cursor.getColumnName(j),cursor.getString(j))
+//            }
+//            verseModel.add(VerseModel(
+//                verseHashMap.get(cursor.getColumnName(0))?:"",
+//                verseHashMap.get(cursor.getColumnName(1))?:"",
+//                verseHashMap.get(cursor.getColumnName(2))?:"",
+//            ))
+//            verseHashMap.clear()
+//            i++
+            tableCount = cursor.getInt(0)
+        }
+//        println("i : ${i}")
+
+        println( "테이블의 행수 : " + tableCount)
+
+        //////////////////////////
+
+        val randNumber = rand(0,tableCount)
+
+        val sqlWhere : String = "Select * FROM ${tableName} LIMIT 1 OFFSET ${randNumber}"
+        cursor = db!!.rawQuery(sqlWhere, null)
+
 
         var i = 0
 
-        var verseModel = arrayListOf<VerseModel>()
-        var verseHashMap = HashMap<String, String>()
-
-        var no : String
-        var speaker : String
-        var content : String
+        val verseModel = arrayListOf<VerseModel>()
+        val verseHashMap = HashMap<String, String>()
 
         while (cursor.moveToNext()) { // 행
             for (j in 0 until cursor.columnCount) { // 열
-                println(cursor.getString(j))
+//                println(cursor.getString(j))
                 verseHashMap.set(cursor.getColumnName(j),cursor.getString(j))
             }
             verseModel.add(VerseModel(
@@ -90,9 +118,15 @@ object ConnectDB {
             verseHashMap.clear()
             i++
         }
-        println("i : ${i}")
+
+        println( "출력결과 : " + verseModel)
+
+        return verseModel
     }
 
+    fun rand(from: Int, to: Int) : Int {
+        return random.nextInt(to - from) + from
+    }
 
     fun DBDrop() {
         val dbFile = File(DB_FULLPATH)
