@@ -92,8 +92,6 @@ object ConnectDB {
         return verseModel
     }
 
-
-
     fun DBDrop() {
         val dbFile = File(DB_FULLPATH)
         if (dbFile.delete()) {

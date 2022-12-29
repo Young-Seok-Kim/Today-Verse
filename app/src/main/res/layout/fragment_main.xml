@@ -20,8 +20,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/verseContent_TextView"
+            android:lineSpacingExtra="20sp"
             android:paddingStart="20sp"
-            tools:text="당신은 사랑받기위해 태어난사람"
+            android:textSize="25sp"
+            android:fontFamily="@font/s_core_dream4"
+            tools:text="인생은 자전거를 타는 것과 같다. 쓰러지지 않으려면 뛰어야 한다."
             />
 
         <TextView
@@ -31,7 +34,9 @@
             android:gravity="right"
             android:paddingEnd="20sp"
             android:id="@+id/verseSpeaker_TextView"
-            tools:text="작자미상" />
+            android:textSize="20sp"
+            android:fontFamily="@font/s_core_dream7"
+            tools:text="아인슈타인" />
     </LinearLayout>
 
 
